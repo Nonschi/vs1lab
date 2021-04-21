@@ -33,11 +33,8 @@ header {
 }
 
 a {
-  
   color: rgb(0, 0, 0);
 }
-
-
 
 body {
   display: block;
@@ -68,8 +65,8 @@ input[type=submit] {
   color: rgb(255, 255, 255);
 }
 
-input:hover {
-  padding: 3px;
+input[type=text]:hover {
+  padding: 5px;
   border: 3px solid rgb(0, 128, 255);
 }
 
@@ -91,7 +88,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin: 5px;
-  
 }
 
 #filter-form {
@@ -156,11 +152,7 @@ footer {
   color: rgb(255, 255, 255);
 }
 
-/* MEDIA QUERIES
-  in order of activation
-  to override default styles from above */
-
-/* medium screen browsers */
+/* map goes under results*/
 @media screen and (max-width: 1150px) {
   .tag-mapping {
       flex-direction: column;
@@ -179,7 +171,7 @@ footer {
   }
 }
 
-/* small screen browsers */
+/* discovery goes below tagging */
 @media screen and (max-width: 950px) {
   .row {
       flex-direction: column;
