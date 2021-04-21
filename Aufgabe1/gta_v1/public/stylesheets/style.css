@@ -1,115 +1,195 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-header, footer {
-  background-color:#4CAF50;
-}
-
 * {
   box-sizing: border-box;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col-"] {
+  display: flex;
+  padding: 15px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+header {
+  background-color: rgb(0, 128, 255);
+  padding: 10px;
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+}
+
+a {
+  
+  color: rgb(0, 0, 0);
+}
+
+
+
+body {
+  display: block;
+  background-color: rgb(255, 255, 255);
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: x-large;
 }
 
 main {
   display: flex;
 }
 
-.tagging {
-  display: flex;
-  flex-direction: column;
-  padding-right: 10%;
-}
-
-.discovery {
-  display: flex;
-  width: 100%;
-}
-
-.caption {
-  padding-bottom: 5%;
-}
-
-.tagmap {
-  padding: 1%;
-  display: inline-flex;
-  flex-direction: column;
-  padding-left: 10%;
-  width: 60%;
-}
-
-#tag-fieldset {
-  display: inline-flex;
-  flex-direction: column;
-  padding-bottom: 10%;
-}
-
-input[type=text] {
-  padding: 12px; 
-  border: 1px solid #ccc; 
-  border-radius: 4px; 
-  margin-top: 6px;
-  margin-bottom: 16px; 
+input {
+  display: block;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 5px;
+  border: 1px solid rgb(0, 0, 0);
 }
 
 input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 4px;
-  cursor: pointer;
+  margin-top: 30px;
+  width: 150px;
+  size: 100px;
+  background-color: rgb(0, 128, 255);
+  color: rgb(255, 255, 255);
 }
 
-.discovery{
-  display: inline-flex;
-  flex-direction: column;
-}
-
-#tags {
-  display: inline-flex;
-  flex-direction: row;
+input:hover {
+  padding: 3px;
+  border: 3px solid rgb(0, 128, 255);
 }
 
 input[type=submit]:hover {
-  background-color: #45a049;
+  padding: 5px;
+  border: 1px solid rgb(255, 255, 255);
 }
 
-#filter-form {
-  width: 100%;
+input:focus {
+  outline: none;
 }
 
-#fieldset_discovery {
-  display: flex;
+.tagging {
+  flex-direction: column;
+  color: rgb(0, 0, 0);
 }
 
-.taglist li {
+.tagging fieldset {
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  margin-bottom: 10px;
-  background-color: #9a98f3;
-  color: #ffffff;
-  align-items: left;
-  padding-right:10px ;
-}
-
-.taglist li:hover {
-  background-color:#45a049;
-}
-
-
-@media (max-device-width: 850px) {
-
-  #tags {
-    width: 100%;
-    display: inline-flex;
-    flex-direction: column;
-  }
-
-  .tagmap {
-    width: 100%;
-  }
+  margin: 5px;
   
 }
 
+#filter-form {
+  border-radius: 10px;
+}
 
+#tag-form_submit-button {
+  position: sticky;
+  left: 100%;
+}
+
+.discovery {
+  flex-direction: column;
+  color: rgb(7, 7, 7);
+}
+
+#filter-form_group{
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+
+#filter-form_search-input {
+  width: 30%;
+}
+
+#filter-form_apply-button  {
+  margin-top: 0px;
+  margin-left: 50px;
+}
+
+.taglist {
+  flex-direction: column;
+}
+
+.taglist ul {
+  padding-left: 0px;
+}
+
+.taglist li {
+  display: block;
+  margin: 5px;
+  background-color: rgb(0, 128, 255);
+  border-radius: 4px;
+  padding: 5px;
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+}
+
+.tagmap {
+  display: flex;
+  flex-direction: column;
+}
+
+#result-img {
+  width: 65%;
+}
+
+footer {
+  background-color: rgb(0, 128, 255);
+  padding: 10px;
+  color: rgb(255, 255, 255);
+}
+
+/* MEDIA QUERIES
+  in order of activation
+  to override default styles from above */
+
+/* medium screen browsers */
+@media screen and (max-width: 1150px) {
+  .tag-mapping {
+      flex-direction: column;
+  }
+
+  .taglist {
+      width: 100%;
+  }
+
+  .tagmap {
+      width: 100%;
+  }
+
+  #filter-form_search-input {
+      width: 50%;
+  }
+}
+
+/* small screen browsers */
+@media screen and (max-width: 950px) {
+  .row {
+      flex-direction: column;
+  }
+
+  .tagging {
+      width: 100%;
+  }
+
+  .discovery {
+      width: 100%;
+  }
+}
