@@ -27,12 +27,12 @@
                     <legend>Enter new GeoTag</legend>
                     
                     <label for="latitude_input">Latitude</label>
-                    <input type="text" id="tag-form_latitude-input" pattern="[0-9]{1,3}(.[0-9]{1,6})?"
-                        value="49.01379" required>
+                    <input type="text" id="tag-form_latitude-input" pattern="[+-]?[0-9]{1,2}(\.[0-9]{1,6})?"
+                        placeholder="49.01379" required>
                     
                     <label for="longitude_input">Longitude</label>
-                    <input type="text" id="tag-form_longitude-input" pattern="[0-9]{1,3}(.[0-9]{1,6})?"
-                        value="8.390071" required>
+                    <input type="text" id="tag-form_longitude-input" pattern="[+-]?[0-9]{1,3}(\.[0-9]{1,6})?"
+                        placeholder="8.390071" required>
                     
                     <label for="name_input">Name</label>
                     <input type="text" id="tag-form_name-input" pattern="\w{1,10}"
@@ -80,6 +80,7 @@
             </div>
         </section>
     </main>
+
     <footer>
         <span>2021 by beno1011, fada1011, koda1026, thst1012 and wila1021</span>
     </footer>

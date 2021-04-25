@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .col-1 {width: 8.33%;}
@@ -16,172 +16,166 @@
 .col-12 {width: 100%;}
 
 [class*="col-"] {
-  display: flex;
-  padding: 15px;
+    display: flex;
+    padding: 15px;
 }
 
 .row {
-  display: flex;
-  flex-direction: row;
-}
-
-header {
-  background-color: rgb(0, 128, 255);
-  padding: 10px;
-  color: rgb(0, 0, 0);
-  border-radius: 10px;
+    display: flex;
+    flex-direction: row;
 }
 
 a {
-  color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+header {
+    background-color: rgb(0, 128, 255);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
 }
 
 body {
-  display: block;
-  background-color: rgb(255, 255, 255);
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-size: x-large;
-}
-
-main {
-  display: flex;
+    display: block;
+    background-color: rgb(255, 255, 255);
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 input {
-  display: block;
-  margin-left: 0px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  padding: 5px;
-  border: 1px solid rgb(0, 0, 0);
+    display: block;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
 }
 
 input[type=submit] {
-  margin-top: 30px;
-  width: 150px;
-  size: 100px;
-  background-color: rgb(0, 128, 255);
-  color: rgb(255, 255, 255);
+    margin-top: 30px;
+    width: 100px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(0, 128, 255);
+    color: rgb(255, 255, 255);
 }
 
-input[type=text]:hover {
-  padding: 5px;
-  border: 3px solid rgb(0, 128, 255);
-}
-
-input[type=submit]:hover {
-  padding: 5px;
-  border: 1px solid rgb(255, 255, 255);
+input:hover {
+    padding: 3px;
+    border: 3px solid rgb(0, 128, 255);
 }
 
 input:focus {
-  outline: none;
+    outline: none;
+    padding: 3px;
+    border: 3px solid rgb(0, 128, 255);
+}
+
+input:invalid {
+    padding: 3px;
+    border: 3px solid rgb(255, 0, 0);
 }
 
 .tagging {
-  flex-direction: column;
-  color: rgb(0, 0, 0);
+    flex-direction: column;
+    color: rgb(0, 0, 0);
 }
 
-.tagging fieldset {
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-}
-
-#filter-form {
-  border-radius: 10px;
+#tag-form_group {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
 }
 
 #tag-form_submit-button {
-  position: sticky;
-  left: 100%;
+    position: sticky;
+    left: 100%;
 }
 
 .discovery {
-  flex-direction: column;
-  color: rgb(7, 7, 7);
+    flex-direction: column;
+    color: rgb(0, 0, 0);
 }
 
-#filter-form_group{
-  display: flex;
-  flex-direction: row;
-  margin: 5px;
+#filter-form_group {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
 }
 
 #filter-form_search-input {
-  width: 30%;
+    width: 30%;
 }
 
 #filter-form_apply-button  {
-  margin-top: 0px;
-  margin-left: 50px;
+    margin-top: 0px;
+    margin-left: 50px;
 }
 
 .taglist {
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .taglist ul {
-  padding-left: 0px;
+    padding-left: 0px;
 }
 
 .taglist li {
-  display: block;
-  margin: 5px;
-  background-color: rgb(0, 128, 255);
-  border-radius: 4px;
-  padding: 5px;
-  padding-left: 15px;
-  color: rgb(255, 255, 255);
+    display: block;
+    margin: 5px;
+    background-color: rgb(0, 128, 255);
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
 }
 
 .tagmap {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #result-img {
-  width: 65%;
+    width: 65%;
 }
 
 footer {
-  background-color: rgb(0, 128, 255);
-  padding: 10px;
-  color: rgb(255, 255, 255);
+    background-color: rgb(0, 128, 255);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
 }
 
 /* map goes under results*/
 @media screen and (max-width: 1150px) {
-  .tag-mapping {
-      flex-direction: column;
-  }
+    .tag-mapping {
+        flex-direction: column;
+    }
 
-  .taglist {
-      width: 100%;
-  }
+    .taglist {
+        width: 100%;
+    }
 
-  .tagmap {
-      width: 100%;
-  }
+    .tagmap {
+        width: 100%;
+    }
 
-  #filter-form_search-input {
-      width: 50%;
-  }
+    #filter-form_search-input {
+        width: 50%;
+    }
 }
 
 /* discovery goes below tagging */
 @media screen and (max-width: 950px) {
-  .row {
-      flex-direction: column;
-  }
+    .row {
+        flex-direction: column;
+    }
 
-  .tagging {
-      width: 100%;
-  }
+    .tagging {
+        width: 100%;
+    }
 
-  .discovery {
-      width: 100%;
-  }
+    .discovery {
+        width: 100%;
+    }
 }
