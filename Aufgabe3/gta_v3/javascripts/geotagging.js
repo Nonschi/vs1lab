@@ -1,16 +1,16 @@
-/* Dieses Skript wird ausgefÃ¼hrt, wenn der Browser index.html lÃ¤dt. */
+/* Dieses Skript wird ausgeführt, wenn der Browser index.html lädt. */
 
 // Befehle werden sequenziell abgearbeitet ...
 
 /**
  * "console.log" schreibt auf die Konsole des Browsers
- * Das Konsolenfenster muss im Browser explizit geÃ¶ffnet werden.
+ * Das Konsolenfenster muss im Browser explizit geöffnet werden.
  */
 console.log("The script is going to start...");
 
-// Es folgen einige Deklarationen, die aber noch nicht ausgefÃ¼hrt werden ...
+// Es folgen einige Deklarationen, die aber noch nicht ausgeführt werden ...
 
-// Hier wird die verwendete API fÃ¼r Geolocations gewÃ¤hlt
+// Hier wird die verwendete API für Geolocations gewählt
 // Die folgende Deklaration ist ein 'Mockup', das immer funktioniert und eine fixe Position liefert.
 GEOLOCATIONAPI = {
     getCurrentPosition: function(onsuccess) {
@@ -44,7 +44,7 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
      * Funktion spricht Geolocation API an.
      * Bei Erfolg Callback 'onsuccess' mit Position.
      * Bei Fehler Callback 'onerror' mit Meldung.
-     * Callback Funktionen als Parameter Ã¼bergeben.
+     * Callback Funktionen als Parameter übergeben.
      */
     var tryLocate = function(onsuccess, onerror) {
         if (geoLocationApi) {
@@ -76,13 +76,13 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
         return position.coords.latitude;
     };
 
-    // Auslesen LÃ¤ngengrad aus Position
+    // Auslesen Längengrad aus Position
     var getLongitude = function(position) {
         return position.coords.longitude;
     };
 
-    // Hier API Key eintragen
-    var apiKey = "YOUR_API_KEY_HERE";
+    // Hier API-Key eintragen oder "YOUR_API_KEY_HERE", wenn kein API-Key verfügbar ist
+    var apiKey = "Lz4I2AVG3C7BK1EIinTOzy0E5f6fZ6HZ";
 
     /**
      * Funktion erzeugt eine URL, die auf die Karte verweist.
@@ -91,7 +91,7 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
      *
      * lat, lon : aktuelle Koordinaten (hier zentriert die Karte)
      * tags : Array mit Geotag Objekten, das auch leer bleiben kann
-     * zoom: Zoomfaktor der Karte
+     * zoom: Zoomfaktor der Karte (aus [0, 18] int) (15 ist ein guter Wert)
      */
     var getLocationMapSrc = function(lat, lon, tags, zoom) {
         zoom = typeof zoom !== 'undefined' ? zoom : 10;
@@ -113,17 +113,30 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
         return urlString;
     };
 
-    return { // Start Ã¶ffentlicher Teil des Moduls ...
+	var tryLocateSuccess = function(position) {
+		let latitude = getLatitude(position);
+		let longitude = getLongitude(position);
+		let imgUrl = getLocationMapSrc(latitude, longitude, undefined, undefined);
+
+		document.getElementById("tag-form_latitude-input").value = latitude.toFixed(7);
+		document.getElementById("tag-form_longitude-input").value = longitude.toFixed(7);
+		document.getElementById("filter-form_latitude-input-hidden").value = latitude;
+		document.getElementById("filter-form_longitude-input-hidden").value = longitude;
+
+		document.getElementById("result-img").src = imgUrl;
+	};
+
+    return { // Start öffentlicher Teil des Moduls ...
 
         // Public Member
 
-        readme: "Dieses Objekt enthÃ¤lt 'Ã¶ffentliche' Teile des Moduls.",
+        readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
 
         updateLocation: function() {
-            // TODO Hier Inhalt der Funktion "update" ergÃ¤nzen
+            tryLocate(tryLocateSuccess, alert);
         }
 
-    }; // ... Ende Ã¶ffentlicher Teil
+    }; // ... Ende öffentlicher Teil
 })(GEOLOCATIONAPI);
 
 /**
@@ -132,6 +145,5 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
  * des Skripts.
  */
 $(function() {
-    alert("Please change the script 'geotagging.js'");
-    // TODO Hier den Aufruf fÃ¼r updateLocation einfÃ¼gen
+    gtaLocator.updateLocation();
 });
