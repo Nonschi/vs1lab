@@ -1,6 +1,4 @@
-
-	<!-- TODO: HTML AUS AUFGABE2 HIERHER KOPIEREN UND DIE BEISPIEL-EINTRÄGE DER DISCOVERY-LISTE MIT DEN FOLGENDEN ZEILEN ERSETZEN -->
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,11 +28,11 @@
                     
                     <label for="tag-form_latitude-input">Latitude</label>
                     <input type="text" id="tag-form_latitude-input" pattern="[+-]?[0-9]{1,2}(\.[0-9]{1,7})?"
-                        placeholder="49.01379" required>
+                        placeholder="49.01379" value="<%= latitude %>" required>
                     
                     <label for="tag-form_longitude-input">Longitude</label>
                     <input type="text" id="tag-form_longitude-input" pattern="[+-]?[0-9]{1,3}(\.[0-9]{1,7})?"
-                        placeholder="8.390071" required>
+                        placeholder="8.390071" value="<%= longitude %>" required>
                     
                     <label for="tag-form_name-input">Name</label>
                     <input type="text" id="tag-form_name-input" pattern="\w{1,10}"
@@ -63,8 +61,8 @@
                     
                     <input type="submit" id="filter-form_apply-button" value="Apply">
                     
-                    <input type="hidden" id="filter-form_latitude-input-hidden">
-                    <input type="hidden" id="filter-form_longitude-input-hidden">
+                    <input type="hidden" id="filter-form_latitude-input-hidden"  value="<%= latitude %>">
+                    <input type="hidden" id="filter-form_longitude-input-hidden" value="<%= longitude %>">
                     
                 </fieldset>
             </form>
@@ -73,17 +71,16 @@
             <div class="tag-mapping row">
                 <div class="taglist col-4">
                     <ul id="results">
-						<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-							<li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
-						<% }); %>
-						<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-							<li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
-						<% }); %>
+                        <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
+                            <li>
+                                <%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> 
+                            </li>
+                        <% }); %>
                     </ul>
                 </div>
 
                 <div class="tagmap col-8">
-                    <img id="result-img" src="./images/mapPlaceholder.png" alt="placeholder image" />
+                    <img id="result-img" src="./images/mapPlaceholder.png" alt="a map with locations" />
                     <div class="caption">Result map</div>
                 </div>
             </div>
@@ -102,5 +99,3 @@
 </body>
 
 </html>
-
-
