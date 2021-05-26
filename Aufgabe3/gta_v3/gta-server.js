@@ -52,11 +52,17 @@ function GeoTagObject(latitude, longitude, name, hashtag) {
 var GeoTagModul = {
     geoTagsArray: [],
 
+    getTags: () => {
+        return GeoTagModul.geoTagsArray;
+    },
+
     inRadius: (lat, long, latGeoTag, longGeotag, radius) => {
         return radius >= Math.sqrt( Math.pow(lat - latGeoTag, 2) + Math.pow(long - longGeotag, 2))
     },  
 
     searchName: name => {
+        console.log(GeoTagModul.geoTagsArray);
+        console.log(GeoTagModul.geoTagsArray.filter(geoTag => geoTag.name == name));
         return GeoTagModul.geoTagsArray.filter(geoTag => geoTag.name == name);
     },
 
@@ -69,7 +75,6 @@ var GeoTagModul = {
     addGeoTag: ( latitude,longitude, name, hashtag) => {
             if(Array.isArray(GeoTagModul.geoTagsArray) && GeoTagModul.geoTagsArray.filter(geoTag => geoTag.name == name).length == 0) {
                 GeoTagModul.geoTagsArray.push(new GeoTagObject(latitude, longitude, name, hashtag));
-                console.log(GeoTagModul);
             }
     },
 
@@ -90,10 +95,14 @@ var GeoTagModul = {
  */
 
 app.get('/', function(req, res) {
+    let lat = req.body.latitude;
+    let long = req.body.longitude;
+    console.log(GeoTagModul.getTags)
     res.render('gta', {
-        taglist: [],
-        latitude: "",
-		longitude: ""
+        taglist: GeoTagModul.getTags(),
+        latitude: lat,
+		longitude: long,
+        data: JSON.stringify(GeoTagModul.getTags())
     });
 });
 
@@ -111,11 +120,14 @@ app.get('/', function(req, res) {
  */
 
  app.post('/tagging', function(req, res) {
-	GeoTagModul.addGeoTag(req.latitude,req.longitude, req.name,req.hashtag);
+    let lat = req.body.latitude;
+    let long = req.body.longitude;
+	GeoTagModul.addGeoTag(lat,long, req.body.name,req.body.hashtag);
     res.render('gta', {
-        taglist: GeoTagModul.searchRadius(req.body.latitude, req.body.longitude, 0.001),
+        taglist: GeoTagModul.searchRadius(lat,long,3),
 		latitude: req.body.latitude,
-		longitude: req.body.longitude
+		longitude: req.body.longitude,
+        data: JSON.stringify(GeoTagModul.searchRadius(lat,long,3))
     });
 });
 
@@ -139,7 +151,8 @@ app.get('/', function(req, res) {
     res.render('gta', {
         taglist: GeoTagModul.searchName(req.body.searchterm),
 		latitude: "",
-		longitude: ""
+		longitude: "",
+        data: JSON.stringify(GeoTagModul.searchName(req.body.searchterm))
     });
 });
 

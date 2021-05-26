@@ -27,19 +27,19 @@
                     <legend>Enter new GeoTag</legend>
                     
                     <label for="tag-form_latitude-input">Latitude</label>
-                    <input type="text" id="tag-form_latitude-input" pattern="[+-]?[0-9]{1,2}(\.[0-9]{1,7})?"
-                        placeholder="49.01379" value="<%= latitude %>" required>
+                    <input name="latitude" type="text" id="tag-form_latitude-input" pattern="[+-]?[0-9]{1,2}(\.[0-9]{1,7})?"
+                    placeholder="48.71284" value="<% if (latitude!==undefined) { %><%=latitude%><% } %>" required>
                     
                     <label for="tag-form_longitude-input">Longitude</label>
-                    <input type="text" id="tag-form_longitude-input" pattern="[+-]?[0-9]{1,3}(\.[0-9]{1,7})?"
-                        placeholder="8.390071" value="<%= longitude %>" required>
+                    <input name="longitude" type="text" id="tag-form_longitude-input" pattern="[+-]?[0-9]{1,3}(\.[0-9]{1,7})?"
+                    placeholder="9.12355" value="<% if (longitude!==undefined) { %><%=longitude%><% } %>"  required>
                     
                     <label for="tag-form_name-input">Name</label>
-                    <input type="text" id="tag-form_name-input" pattern="\w{1,10}"
+                    <input type="text" id="tag-form_name-input" name="name" pattern="\w{1,10}"
                         placeholder="some name" required>
                     
                     <label for="tag-form_hashtag-input">Hashtag</label>
-                    <input type="text" id="tag-form_hashtag-input" pattern="#\w{1,10}"
+                    <input  name="hashtag" type="text" id="tag-form_hashtag-input" pattern="#\w{1,10}"
                         placeholder="# + max. 10 letters">
                     
                     <input type="submit" id="tag-form_submit-button" value="Submit">
@@ -57,12 +57,12 @@
                 <fieldset id="filter-form_group">
                     <legend>Filter by searchterm</legend>
                     
-                    <input type="text" id="filter-form_search-input" placeholder="search term">
+                    <input name="searchterm" type="text" id="filter-form_search-input" placeholder="search term">
                     
                     <input type="submit" id="filter-form_apply-button" value="Apply">
                     
-                    <input type="hidden" id="filter-form_latitude-input-hidden"  value="<%= latitude %>">
-                    <input type="hidden" id="filter-form_longitude-input-hidden" value="<%= longitude %>">
+                    <input name="latitude" type="hidden" id="filter-form_latitude-input-hidden"  value="<% if (latitude!==undefined) { %><%=latitude%><% } %>">
+                    <input name="longitude" type="hidden" id="filter-form_longitude-input-hidden" value="<% if (longitude!==undefined) { %><%=longitude%><% } %>">
                     
                 </fieldset>
             </form>
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="tagmap col-8">
-                    <img id="result-img" src="./images/mapPlaceholder.png" alt="a map with locations" />
+                    <img id="result-img" src="./images/mapPlaceholder.png" alt="a map with locations"  data-tags="<%= data %>"/>
                     <div class="caption">Result map</div>
                 </div>
             </div>

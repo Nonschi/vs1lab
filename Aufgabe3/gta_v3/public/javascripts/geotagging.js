@@ -1,16 +1,16 @@
-/* Dieses Skript wird ausgeführt, wenn der Browser index.html lädt. */
+/* Dieses Skript wird ausgefï¿½hrt, wenn der Browser index.html lï¿½dt. */
 
 // Befehle werden sequenziell abgearbeitet ...
 
 /**
  * "console.log" schreibt auf die Konsole des Browsers
- * Das Konsolenfenster muss im Browser explizit geöffnet werden.
+ * Das Konsolenfenster muss im Browser explizit geï¿½ffnet werden.
  */
 console.log("The script is going to start...");
 
-// Es folgen einige Deklarationen, die aber noch nicht ausgeführt werden ...
+// Es folgen einige Deklarationen, die aber noch nicht ausgefï¿½hrt werden ...
 
-// Hier wird die verwendete API für Geolocations gewählt
+// Hier wird die verwendete API fï¿½r Geolocations gewï¿½hlt
 // Die folgende Deklaration ist ein 'Mockup', das immer funktioniert und eine fixe Position liefert.
 GEOLOCATIONAPI = {
     getCurrentPosition: function(onsuccess) {
@@ -44,7 +44,7 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
      * Funktion spricht Geolocation API an.
      * Bei Erfolg Callback 'onsuccess' mit Position.
      * Bei Fehler Callback 'onerror' mit Meldung.
-     * Callback Funktionen als Parameter übergeben.
+     * Callback Funktionen als Parameter ï¿½bergeben.
      */
     var tryLocate = function(onsuccess, onerror) {
         if (geoLocationApi) {
@@ -76,12 +76,12 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
         return position.coords.latitude;
     };
 
-    // Auslesen Längengrad aus Position
+    // Auslesen Lï¿½ngengrad aus Position
     var getLongitude = function(position) {
         return position.coords.longitude;
     };
 
-    // Hier API-Key eintragen oder "YOUR_API_KEY_HERE", wenn kein API-Key verfügbar ist
+    // Hier API-Key eintragen oder "YOUR_API_KEY_HERE", wenn kein API-Key verfï¿½gbar ist
     var apiKey = "Lz4I2AVG3C7BK1EIinTOzy0E5f6fZ6HZ";
 
     /**
@@ -116,27 +116,42 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
 	var tryLocateSuccess = function(position) {
 		let latitude = getLatitude(position);
 		let longitude = getLongitude(position);
-		let imgUrl = getLocationMapSrc(latitude, longitude, undefined, undefined);
-
 		document.getElementById("tag-form_latitude-input").value = latitude.toFixed(7);
 		document.getElementById("tag-form_longitude-input").value = longitude.toFixed(7);
 		document.getElementById("filter-form_latitude-input-hidden").value = latitude;
 		document.getElementById("filter-form_longitude-input-hidden").value = longitude;
-
-		document.getElementById("result-img").src = imgUrl;
+        loadMap(latitude, longitude, getTagList());
 	};
 
-    return { // Start öffentlicher Teil des Moduls ...
+    var getTagList = function() {
+        let imageNode = document.getElementById("result-img");
+        return JSON.parse(imageNode.getAttribute("data-tags"));
+    }
+
+    var loadMap = function(latitude, longitude, taglist) {
+        document.getElementById("tag-form_latitude-input").value, document.getElementById("tag-form_longitude-input").value
+        let imgUrl = getLocationMapSrc(latitude, longitude, taglist, undefined);
+        document.getElementById("result-img").src = imgUrl;
+    }
+
+    return { // Start ï¿½ffentlicher Teil des Moduls ...
 
         // Public Member
 
-        readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
+        readme: "Dieses Objekt enthï¿½lt 'ï¿½ffentliche' Teile des Moduls.",
 
         updateLocation: function() {
-            tryLocate(tryLocateSuccess, alert);
+            let latitude = document.getElementById("tag-form_latitude-input").value;
+            let longitude = document.getElementById("tag-form_longitude-input").value;
+            if(latitude && longitude) {
+                console.log("loadMap:")
+                loadMap(latitude, longitude, getTagList());
+            } else {
+                console.log("tryLocate:")
+                tryLocate(tryLocateSuccess, alert);
+            }
         }
-
-    }; // ... Ende öffentlicher Teil
+    }; // ... Ende ï¿½ffentlicher Teil
 })(GEOLOCATIONAPI);
 
 /**
