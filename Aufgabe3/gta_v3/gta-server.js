@@ -61,8 +61,10 @@ var GeoTagModul = {
     },  
 
     searchName: name => {
+        /*
         console.log(GeoTagModul.geoTagsArray);
         console.log(GeoTagModul.geoTagsArray.filter(geoTag => geoTag.name == name));
+        */
         return GeoTagModul.geoTagsArray.filter(geoTag => geoTag.name == name);
     },
 
@@ -95,13 +97,10 @@ var GeoTagModul = {
  */
 
 app.get('/', function(req, res) {
-    let lat = req.body.latitude;
-    let long = req.body.longitude;
-    console.log(GeoTagModul.getTags)
     res.render('gta', {
         taglist: GeoTagModul.getTags(),
-        latitude: lat,
-		longitude: long,
+        latitude: req.body.latitude,
+		longitude: req.body.longitude,
         data: JSON.stringify(GeoTagModul.getTags())
     });
 });
@@ -122,7 +121,6 @@ app.get('/', function(req, res) {
  app.post('/tagging', function(req, res) {
     let lat = req.body.latitude;
     let long = req.body.longitude;
-	GeoTagModul.addGeoTag(lat,long, req.body.name,req.body.hashtag);
     res.render('gta', {
         taglist: GeoTagModul.searchRadius(lat,long,3),
 		latitude: req.body.latitude,
@@ -150,8 +148,8 @@ app.get('/', function(req, res) {
 	}
     res.render('gta', {
         taglist: GeoTagModul.searchName(req.body.searchterm),
-		latitude: "",
-		longitude: "",
+		latitude: req.body.latitude,
+		longitude: req.body.longitude,
         data: JSON.stringify(GeoTagModul.searchName(req.body.searchterm))
     });
 });

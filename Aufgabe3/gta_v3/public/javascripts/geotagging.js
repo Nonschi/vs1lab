@@ -143,6 +143,8 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
         updateLocation: function() {
             let latitude = document.getElementById("tag-form_latitude-input").value;
             let longitude = document.getElementById("tag-form_longitude-input").value;
+            console.log(latitude);
+            console.log(longitude);
             if(latitude && longitude) {
                 console.log("loadMap:")
                 loadMap(latitude, longitude, getTagList());
