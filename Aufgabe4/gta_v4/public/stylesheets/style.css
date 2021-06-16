@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col-"] {
+    display: flex;
+    padding: 15px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+a {
+    color: rgb(0, 0, 0);
+}
+
+header {
+    background-color: rgb(0, 128, 255);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+body {
+    display: block;
+    background-color: rgb(255, 255, 255);
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+input {
+    display: block;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
+input[type=submit] {
+    margin-top: 30px;
+    width: 100px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(0, 128, 255);
+    color: rgb(255, 255, 255);
+}
+
+input:hover {
+    padding: 3px;
+    border: 3px solid rgb(0, 128, 255);
+}
+
+input:focus {
+    outline: none;
+    padding: 3px;
+    border: 3px solid rgb(0, 128, 255);
+}
+
+input:invalid {
+    padding: 3px;
+    border: 3px solid rgb(255, 0, 0);
+}
+
+.tagging {
+    flex-direction: column;
+    color: rgb(0, 0, 0);
+}
+
+#tag-form_group {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+#tag-form_submit-button {
+    position: sticky;
+    left: 100%;
+}
+
+.discovery {
+    flex-direction: column;
+    color: rgb(0, 0, 0);
+}
+
+#filter-form_group {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+
+#filter-form_search-input {
+    width: 30%;
+}
+
+#filter-form_apply-button  {
+    margin-top: 0px;
+    margin-left: 50px;
+}
+
+.taglist {
+    flex-direction: column;
+}
+
+.taglist ul {
+    padding-left: 0px;
+}
+
+.taglist li {
+    display: block;
+    margin: 5px;
+    background-color: rgb(0, 128, 255);
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+}
+
+.tagmap {
+    display: flex;
+    flex-direction: column;
+}
+
+#result-img {
+    width: 65%;
+}
+
+footer {
+    background-color: rgb(0, 128, 255);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+/* map goes under results*/
+@media screen and (max-width: 1150px) {
+    .tag-mapping {
+        flex-direction: column;
+    }
+
+    .taglist {
+        width: 100%;
+    }
+
+    .tagmap {
+        width: 100%;
+    }
+
+    #filter-form_search-input {
+        width: 50%;
+    }
+}
+
+/* discovery goes below tagging */
+@media screen and (max-width: 950px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .tagging {
+        width: 100%;
+    }
+
+    .discovery {
+        width: 100%;
+    }
+}
