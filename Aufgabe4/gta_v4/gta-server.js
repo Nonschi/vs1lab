@@ -13,10 +13,12 @@ var http = require('http');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var express = require('express');
+const { checkPrime } = require('crypto');
 
 var app;
 app = express();
 app.use(logger('dev'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -89,6 +91,10 @@ var geoTagModule = (function() {
             });
             return foundGeoTags;
         },
+
+        getTagById: function(id) {
+            return [...geoTagModule.filter(tag => tag.id === id)];
+        },
         
         searchGeoTagsSearchterm: function(latitude, longitude, radius, searchterm) {
             foundGeoTags = [];
@@ -109,24 +115,26 @@ var geoTagModule = (function() {
             geoTags.push(geoTag);
         },
         
-        deleteGeoTag: function(geoTagId) {
-            let index = -1;
-            for (let i = 0; i < geoTags.length; i++) {
-                if (geoTags[i].id === geoTagId) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index !== -1) {
-                geoTags.splice(index, 1);
-            }
+        deleteGeoTag: function(geoTag) {
+            let index = geoTags.indexOf(geoTag);
+            geoTags.splice(index, 1);
         },
 
         getGeoTag: function(id) {
-            return geoTags.filter(tag => tag.id === id);
+            return geoTags.filter(tag => tag.id == id);
+        },
+
+        setGeoTag: function(geoTagId, newGeoTag) {
+            let foundGeoTag = this.getGeoTag(geoTagId);
+            if (foundGeoTag !== undefined) {
+                foundGeoTag = newGeoTag;
+                return true;
+            }
+            return false;
         }
     };
 })();
+
 
 /**
  * Route mit Pfad '/' f�r HTTP 'GET' Requests.
@@ -158,6 +166,8 @@ app.get('/', function(req, res) {
  */
 
 app.post('/tagging', function(req, res) {
+    console.log("geoztagtagging");
+
     let newGeoTag = newGeoTagObject(req.body.latitude,
             req.body.longitude, req.body.name, req.body.hashtag);
     let geoTags = [newGeoTag];
@@ -185,6 +195,8 @@ app.post('/tagging', function(req, res) {
  */
 
 app.post('/discovery', function(req, res) {
+    console.log("geoztagdisc");
+
     let latitude = req.body.latitude;
     let longitude = req.body.longitude;
     let geoTags = geoTagModule.searchGeoTagsSearchterm(latitude, longitude,
@@ -196,24 +208,78 @@ app.post('/discovery', function(req, res) {
 });
 
 app.post("/geotags", function(req, res) {
+    console.log("geotags post");
+    let geoTag = req.body;
+    console.log(geoTag);
+    if(geoTag) {
+        let results = geoTagModule.searchGeoTagsRadius(geoTag.latitude, geoTag.longitude,
+            geoTagModule.RADIUS);
+        let response = [geoTag, ...results];
+        geoTagModule.addGeoTag(geoTag);
+        res.status(201).json(response);
+    } else {
+        res.status(400).send("GeoTag undefined.");
+    }
 
 });
 
 app.get("/geotags", function(req, res) {
+    console.log("geotags get");
+    let lat = req.query.latitude;
+    let long = req.query.longitude;
+    if(lat && long) {
+        res.status(200).json(geoTagModule.searchGeoTagsSearchterm(lat, long,
+                geoTagModule.RADIUS, req.query.search));
+    } else {
+        res.status(400).send("Coordinates undefined.");
+    }
 
 });
 
-app.put("/geotags/:id", function(req, res) {
-
+app.get("/geotags/:id", function(req, res) {
+    console.log("geoztagsgetid");
+    let id = req.params.id;
+    console.log(id)
+    let geoTag = geoTagModule.getGeoTag(id);
+    console.log(geoTag);
+    if (geoTag) {
+        res.status(200).json(geoTag);
+    } else {
+        res.status(404).send("No geotag with this id defined: " + id);
+    }
 });
 
 app.put("/geotags/:id", function(req, res) {
+    console.log("geoztagputtid");
 
+    let id = req.params.id;
+    let geoTag = req.body;
+    console.log(geoTag);
+    if (id != geoTag.id) {
+        res.status(400).send("Geo-tag with id " + geoTag.id + " cannot change geo-tag stored at id " + id);
+    } else {
+        if (geoTagModule.setGeoTag(id, geoTag)) {
+            res.status(200).json(geoTag);
+        } else {
+            res.status(404).send("No geo-tag with id: " + id);
+        }
+    }
 });
 
 app.delete("/geotags/:id", function(req, res) {
+    console.log("geoztagsdeleteid");
 
+    let id = req.params.id;
+    let geoTag = geoTagModule.getGeoTag(id);
+    if (geoTag) {
+        geoTagModule.deleteGeoTag(geoTag);
+        res.status(200).send("Deleted geotag.");
+    } else {
+        res.status(404).send("No geotag with this id defined: " + id);
+    }
 });
+
+
 /**
  * Setze Port und speichere in Express.
  */

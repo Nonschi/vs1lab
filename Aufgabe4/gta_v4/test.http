@@ -1,0 +1,38 @@
+GET http://localhost:3000/
+
+###
+
+POST  http://localhost:3000/geotags/
+Content-Type: application/json
+
+{
+  "latitude": "49.0078208",
+  "longitude": "8.4279296",
+  "name": "test",
+  "hashtag": "#test"
+}
+###
+
+
+GET  http://localhost:3000/geotags/?latitude=49.0078208&longitude=8.4279296&search=test
+Content-Type: application/json
+###
+
+GET  http://localhost:3000/geotags/0
+Content-Type: application/json
+###
+
+PUT  http://localhost:3000/geotags/0
+Content-Type: application/json
+
+{
+  "latitude": 49.007820,
+  "longitude": 8.4279296,
+  "name": "2test",
+  "hashtag": "#test",
+  "id" : 0
+}
+
+### 
+DELETE  http://localhost:3000/geotags/0
+Content-Type: application/json
